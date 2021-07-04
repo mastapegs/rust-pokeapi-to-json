@@ -1,21 +1,7 @@
-use error_chain::error_chain;
-use std::io::Read;
-
-error_chain! {
-    foreign_links {
-        Io(std::io::Error);
-        HttpRequest(reqwest::Error);
-    }
-}
-
-fn main() -> Result<()> {
-    let mut res = reqwest::blocking::get("https://pokeapi.co/api/v2/pokemon/ditto")?;
-    let mut body = String::new();
-    res.read_to_string(&mut body)?;
-
-    println!("Status: {}", res.status());
-    println!("Headers:\n{:#?}", res.headers());
-    println!("Body:\n{}", body);
-
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let ditto_url = "https://pokeapi.co/api/v2/pokemon/ditto";
+    let ditto_text = reqwest::get(ditto_url).await?.text().await?;
+    println!("Ditto get request:\n{}", ditto_text);
     Ok(())
 }
