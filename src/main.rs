@@ -1,19 +1,25 @@
+use serde::{Deserialize, Serialize};
+
+#[derive(Serialize, Deserialize)]
 struct GameIndex {
     game_index: u32,
     version: Details,
 }
 
+#[derive(Serialize, Deserialize)]
 struct Details {
     name: String,
     url: String,
 }
 
+#[derive(Serialize, Deserialize)]
 struct Ability {
     ability: Details,
     is_hidden: bool,
     slot: u8,
 }
 
+#[derive(Serialize, Deserialize)]
 struct Pokemon {
     abilities: Vec<Ability>,
     base_experience: u32,
