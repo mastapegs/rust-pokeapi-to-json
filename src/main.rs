@@ -1,8 +1,35 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Debug)]
+struct OtherSprites {
+    dream_world: Option<String>,
+    official_artwork: Option<String>,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+struct Sprites {
+    back_female: String,
+    back_shiny_female: String,
+    back_default: String,
+    front_female: String,
+    front_shiny_female: String,
+    back_shiny: String,
+    front_default: String,
+    front_shiny: String,
+    other: OtherSprites,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+struct VersionGroupDetails {
+    level_learned_at: u32,
+    move_learn_method: Details,
+    version_group: Details,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
 struct Move {
     r#move: Details,
+    version_group_details: Vec<VersionGroupDetails>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -30,7 +57,7 @@ struct Details {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-struct Ability {
+struct PokemonAbility {
     ability: Details,
     is_hidden: bool,
     slot: u8,
@@ -38,7 +65,7 @@ struct Ability {
 
 #[derive(Serialize, Deserialize, Debug)]
 struct Pokemon {
-    abilities: Vec<Ability>,
+    abilities: Vec<PokemonAbility>,
     base_experience: u32,
     forms: Vec<Details>,
     game_indices: Vec<GameIndex>,
@@ -48,6 +75,11 @@ struct Pokemon {
     is_default: bool,
     location_area_encounters: String,
     moves: Vec<Move>,
+    name: String,
+    order: u32,
+    weight: u32,
+    species: Details,
+    // sprites: Sprites,
 }
 
 #[tokio::main]
