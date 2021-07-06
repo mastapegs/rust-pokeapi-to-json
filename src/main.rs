@@ -1,3 +1,26 @@
+struct GameIndex {
+    game_index: u32,
+    version: Details,
+}
+
+struct Details {
+    name: String,
+    url: String,
+}
+
+struct Ability {
+    ability: Details,
+    is_hidden: bool,
+    slot: u8,
+}
+
+struct Pokemon {
+    abilities: Vec<Ability>,
+    base_experience: u32,
+    forms: Vec<Details>,
+    game_indices: Vec<GameIndex>
+}
+
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let ditto_url = "https://pokeapi.co/api/v2/pokemon/ditto";
